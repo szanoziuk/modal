@@ -29,7 +29,8 @@ class ModalListItem extends PureComponent {
 
     handleChange = ( e ) => {
         const { id, commonHandleChange } = this.props;
-        commonHandleChange(id, { [e.target.name]: e.target.value });
+        const value = e.target.value.match(/\d+/g) ? +e.target.value: e.target.value;
+        commonHandleChange(id, { [e.target.name]: value });
     }
     
     render() {
