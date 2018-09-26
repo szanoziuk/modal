@@ -47,24 +47,15 @@ class ModalContent extends Component {
         this.setState({ data: this.state.data.filter( el => el.id !== id ) });
     };
     
-    handleSelect = ( id, select ) => {
-        const obj = this.state.data.find( ( el ) => el.id === id );
-        const index = findIndex( this.state.data, el => el.id === id );
-        const newObj = { ...obj, ...{ select } };
-        const newArr = this.state.data;
-        newArr[ index ] = newObj
-        this.setState({ data: newArr });
-    };
-    
-    handleInput = ( id, number ) => {
+    commonHandleChange = ( id, myObj ) => {
         const obj = this.state.data.find((el) => el.id === id);
         const index = findIndex(this.state.data, el => el.id === id);
-        const newObj = { ...obj, ...{ number } };
+        const newObj = { ...obj, ...myObj };
         const newArr = this.state.data;
         newArr[index] = newObj
         this.setState({ data: newArr });
-    };
-    
+    }
+
     saveItems = () => {
         localStorage.setItem('data', JSON.stringify(this.state.data));
         this.props.onClick();
@@ -75,8 +66,7 @@ class ModalContent extends Component {
         const children = this.state.data.map( ( el, i ) => 
             <ModalListItem 
                 itemDelete={ this.itemDelete }
-                handleSelect={ this.handleSelect }
-                handleInput={ this.handleInput }
+                commonHandleChange={ this.commonHandleChange }
                 select={ el.select } 
                 number={ el.number }
                 id={ el.id }

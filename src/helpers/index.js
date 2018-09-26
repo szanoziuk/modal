@@ -2,7 +2,7 @@ export function getUniqueId( obj = {} ) {
     const startArr = getUniqueId.ids;
     const keys = Object.keys( obj ).length ? Object.keys( obj ) : [];
     const arr = [ ...startArr, ...keys ]; 
-    const id = (Math.random() * 100000000).toFixed();
+    const id = getRandomInt( 1, 1e100 );
     if (arr.includes(id)) {
         getUniqueId();
     } else {
@@ -13,3 +13,7 @@ export function getUniqueId( obj = {} ) {
 
 getUniqueId.ids = [];
 
+
+function getRandomInt( min, max ) {
+    return Math.floor( Math.random() * (max - min) ) + min;
+}

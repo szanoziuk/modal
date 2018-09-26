@@ -26,17 +26,10 @@ const styles = {
 
 
 class ModalListItem extends PureComponent {
-    
-    selectChange = (e) => {
-        const { id, handleSelect } = this.props;
-        const select = e.target.value;
-        handleSelect( id, select );
-    }
-    
-    inputChange = (e) => {
-        const { id, handleInput } = this.props;
-        const number = +e.target.value;
-        handleInput( id, number );
+
+    handleChange = ( e ) => {
+        const { id, commonHandleChange } = this.props;
+        commonHandleChange(id, { [e.target.name]: e.target.value });
     }
     
     render() {
@@ -46,27 +39,26 @@ class ModalListItem extends PureComponent {
             <ListItem dense>
                 <FormControl>
                     <Select 
+                        name="select"
                         className={ classes.select }
-                        onChange={ this.selectChange }
+                        onChange={ this.handleChange }
                         value={ select }
                     >
                         { 
                             selectItems.map( ( item, i ) => 
-                                <MenuItem 
-                                    key={ i }
-                                    value={ item }
-                                >
+                                <MenuItem key={ i } value={ item }>
                                     { item }
                                 </MenuItem>) 
                         }
                    </Select>
                 </FormControl>
                 <FormControl>
-                    <Input 
+                    <Input
+                        name="number" 
                         value={ number } 
                         type="number" 
                         className={ classes.input }
-                        onChange={ this.inputChange }
+                        onChange={ this.handleChange }
                     />
                 </FormControl>
                 <IconButton className={ classes.close } onClick={ () => itemDelete(id) }>
@@ -84,8 +76,7 @@ ModalListItem.propTypes = {
     id: propTypes.number.isRequired,
     number: propTypes.number,
     itemDelete: propTypes.func.isRequired,
-    handleInput: propTypes.func.isRequired,
-    handleSelect: propTypes.func.isRequired
+    commonHandleChange: propTypes.func.isRequired
 };
 
 export default withStyles(styles)(ModalListItem);
