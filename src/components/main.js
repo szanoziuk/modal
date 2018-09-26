@@ -7,14 +7,14 @@ import Paper from '@material-ui/core/Paper';
 import ModalContent from './modal-content';
 import ModalHeader from './modal-header';
 
-const styles = {
+const styles = theme => ({
     root: {
         position: 'absolute',
         left: 500,
         top: 100,
-        width: 320,
-        height: 500,
-        backgroundColor: '#fff',
+        width: theme.spacing.unit*40,
+        height: theme.spacing.unit*60,
+        backgroundColor: theme.palette.background.paper,
         overflow: 'auto'
 
     },
@@ -24,7 +24,7 @@ const styles = {
     button: {
         margin: 20
     }
-};
+});
 
 class Main extends Component {
     render() {
