@@ -1,10 +1,11 @@
 import React from 'react';
+import propTypes from 'prop-types';
+
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles'
-import propTypes from 'prop-types';
 import grey from '@material-ui/core/colors/grey'
 
 const styles = {

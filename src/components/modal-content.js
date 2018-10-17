@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar';
-import ModalListItem from './modal-list-item';
-import propTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles'; 
+
+import ModalListItem from './modal-list-item';
 
 const styles = {
     btn: {
