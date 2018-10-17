@@ -22,7 +22,7 @@ const styles = {
 
 const ModalHeader = ({ onClick, classes }) => {
     return(
-        <Toolbar variant="dense" className={ classes.root }>
+        <Toolbar className={ classes.root }>
             <Typography 
                 variant="subheading"
                 color="inherit"

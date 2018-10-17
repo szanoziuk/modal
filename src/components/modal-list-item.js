@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react';
+import propTypes from 'prop-types';
+
 import ListItem from '@material-ui/core/ListItem';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -7,7 +9,6 @@ import Select from '@material-ui/core/Select';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
-import propTypes from 'prop-types';
 import red from '@material-ui/core/colors/red';
 
 const styles = {
