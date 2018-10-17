@@ -1,1 +1,1 @@
-[{"id":1,"select":"None","number":1},{"id":2,"select":"Twin","number":8},{"id":3,"select":"Single","number":12}]
+[{"select":"None","number":"1"},{"select":"Twin","number":"8"},{"select":"Single","number":"12"}]

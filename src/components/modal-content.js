@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar';
 import ModalListItem from './modal-list-item';
 import propTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles'; 
-import { getUniqueId } from '../helpers';
-import { findIndex } from 'lodash';
 
 const styles = {
     btn: {
@@ -15,15 +14,16 @@ const styles = {
 };
 
 class ModalContent extends Component {
+
     state = {
         data: []
-    };
+    }
 
     componentWillMount() {
         localStorage.getItem('data') && this.setState({ 
             data: JSON.parse(localStorage.getItem('data')) 
         });
-    }
+    };
 
     componentDidMount() {
         if( localStorage.getItem('data') ) {
@@ -35,26 +35,38 @@ class ModalContent extends Component {
                 .catch( err => console.log(err) );
             console.log( 'Data fetched.' );
         }
-    }
+    };
 
     addNewItem = () => {
-        const id = + getUniqueId( this.state.data );
-        const newItem = [{ id: id, select: "None", number: 0 }];
-        this.setState({ data: [ ...this.state.data, ...newItem ] }); 
+        const newItem = {
+            select: "None",
+            number: "0" 
+        };
+
+        const items = [ ...this.state.data, newItem ];
+
+        this.setState({ data: items });
     };
     
-    itemDelete = ( id ) => {
-        this.setState({ data: this.state.data.filter( el => el.id !== id ) });
+    itemDelete = ( index ) => {
+        const items = [
+            ...this.state.data.slice(0, index),
+            ...this.state.data.slice(index + 1)
+        ];
+
+        this.setState({ data: items }); 
     };
     
-    commonHandleChange = ( id, myObj ) => {
-        const obj = this.state.data.find((el) => el.id === id);
-        const index = findIndex(this.state.data, el => el.id === id);
-        const newObj = { ...obj, ...myObj };
-        const newArr = this.state.data;
-        newArr[index] = newObj
-        this.setState({ data: newArr });
-    }
+    commonHandleChange = ( index, myObj ) => {
+        const items = this.state.data.map( ( item, i ) => {
+            if( index !== i ) { 
+                return item;
+            }
+            return { ...item, ...myObj };
+        });
+       
+        this.setState({ data: items });
+    };
 
     saveItems = () => {
         localStorage.setItem('data', JSON.stringify(this.state.data));
@@ -63,17 +75,17 @@ class ModalContent extends Component {
 
     render() {
         const { onClick, classes } = this.props;
-        const children = this.state.data.map( ( el, i ) => 
+        const children = this.state.data.map( (item,i) => 
             <ModalListItem 
                 itemDelete={ this.itemDelete }
                 commonHandleChange={ this.commonHandleChange }
-                select={ el.select } 
-                number={ el.number }
-                id={ el.id }
+                index={ i } 
+                select={ item.select } 
+                number={ item.number } 
                 key={ i }
             />);
         return(
-            <form action="#">
+            <form>
                 <List>
                     { children }
                 </List>
@@ -81,9 +93,7 @@ class ModalContent extends Component {
                     className={classes.btn}
                     color="primary"
                     onClick={ this.addNewItem }
-                > 
-                    Добавить
-             </Button>
+                > Добавить </Button>
                 <Toolbar variant="dense">
                     <Button 
                         color="primary"

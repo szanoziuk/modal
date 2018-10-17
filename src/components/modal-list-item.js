@@ -28,13 +28,12 @@ const styles = {
 class ModalListItem extends PureComponent {
 
     handleChange = ( e ) => {
-        const { id, commonHandleChange } = this.props;
-        const value = e.target.value.match(/\d+/g) ? +e.target.value: e.target.value;
-        commonHandleChange(id, { [e.target.name]: value });
+        const { index, commonHandleChange } = this.props;
+        commonHandleChange(index, { [e.target.name]: e.target.value });
     }
     
     render() {
-        const { classes, id, select, number, itemDelete } = this.props;
+        const { classes, index, select, number, itemDelete } = this.props;
         const selectItems = ['None', 'Single', 'Twin', 'Tripple', 'Quadro'];
         return(
             <ListItem dense>
@@ -46,9 +45,9 @@ class ModalListItem extends PureComponent {
                         value={ select }
                     >
                         { 
-                            selectItems.map( ( item, i ) => 
-                                <MenuItem key={ i } value={ item }>
-                                    { item }
+                            selectItems.map( ( el, i ) => 
+                                <MenuItem key={ i } value={ el }>
+                                    { el }
                                 </MenuItem>) 
                         }
                    </Select>
@@ -62,7 +61,7 @@ class ModalListItem extends PureComponent {
                         onChange={ this.handleChange }
                     />
                 </FormControl>
-                <IconButton className={ classes.close } onClick={ () => itemDelete(id) }>
+                <IconButton className={ classes.close } onClick={ () => itemDelete( index ) }>
                     <Close />
                 </IconButton>
             </ListItem>
@@ -74,8 +73,8 @@ class ModalListItem extends PureComponent {
 ModalListItem.propTypes = {
     classes: propTypes.object.isRequired,
     select: propTypes.string.isRequired,
-    id: propTypes.number.isRequired,
-    number: propTypes.number,
+    index: propTypes.number.isRequired,
+    number: propTypes.string,
     itemDelete: propTypes.func.isRequired,
     commonHandleChange: propTypes.func.isRequired
 };
